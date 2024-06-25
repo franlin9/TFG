@@ -1,5 +1,7 @@
 #!/usr/bin/env python3
-#
+# Primereramente se tiene que tener instalado el entorno de jetson Inference.
+# Ejecutar el script en la ubicación siguiente: 
+#	/home/jetson/jetson-inference/build/aarch64/bin/stop-signal-detecction.py
 
 import sys
 import argparse
