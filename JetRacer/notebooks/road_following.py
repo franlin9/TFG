@@ -21,20 +21,6 @@ print("[SYSTEM] System starts up .... Please wait")
 # use the TensorRT to faster inference
 CATEGORIES = ['apex']
 
-### use the following code when you are the first time to use
-### we need the following code to get the TensorRT version weight
-
-###device = torch.device('cuda')
-###model = torchvision.models.resnet18(pretrained=False)
-###model.fc = torch.nn.Linear(512, 2 * len(CATEGORIES))
-###model = model.cuda().eval().half()
-###model.load_state_dict(torch.load('road_following_model.pth'))
-###data = torch.zeros((1, 3, 224, 224)).cuda().half()
-###model_trt = torch2trt(model, [data], fp16_mode=True)
-###torch.save(model_trt.state_dict(), 'road_following_model_trt.pth')
-###model_trt = TRTModule()
-###model_trt.load_state_dict(torch.load('road_following_model_trt.pth'))
-
 ### When you got the TensorRT version weight, change to following code
 model_trt = TRTModule()
 model_trt.load_state_dict(torch.load('road_following_model_trt.pth'))
@@ -52,13 +38,13 @@ camera = CSICamera(width=224, height=224, capture_fps=65)
 # car.throttle_gain means the maximum limitation speed of back wheel
 
 # Car parameter
-car.throttle = 0.2
+car.throttle = 0.32
 car.steering = 0
 car.steering_offset = 0
 
 # PID parameter
-STEERING_GAIN = 1.5
-STEERING_BIAS = 0.5
+STEERING_GAIN = 1.7
+STEERING_BIAS = 0.45
 
 print ("Successful to load parameter")
 
