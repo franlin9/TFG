@@ -54,10 +54,14 @@ print ("Successful to load parameter")
 #If the car tends left, make the steering bias more postive (in small increments +0.05)
 
 while True:
+    try:
         image = camera.read()
         image = preprocess(image).half()
         output = model_trt(image).detach().cpu().numpy().flatten()
         x = float(output[0])
         pid_steering = x * STEERING_GAIN + STEERING_BIAS 
-        print("[OUTPUT] AI-Output:{} PID-Steering:{}".format(x,pid_steering))
+        print("[OUTPUT] AI-Output:{} PID-Steering:{}".format(x, pid_steering))
         car.steering = pid_steering
+    except Exception as e:
+        print("Error: ", e)
+        car.throttle = 0  # Stop the car in case of error
