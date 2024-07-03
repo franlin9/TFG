@@ -55,11 +55,11 @@ print ("Successful to load parameter")
 
 while True:
     try:
-        image = camera.read()
-        image = preprocess(image).half()
-        output = model_trt(image).detach().cpu().numpy().flatten()
-        x = float(output[0])
-        pid_steering = x * STEERING_GAIN + STEERING_BIAS 
+        image = camera.read() #capture the images of the camera
+        image = preprocess(image).half() #process the image
+        output = model_trt(image).detach().cpu().numpy().flatten() #execute the image through of optimez model tensoRT, move the tensor to CPU in a numpy
+        x = float(output[0]) # Extracts and converts the model output to a float number.
+        pid_steering = x * STEERING_GAIN + STEERING_BIAS #Calculate the direction value using the proportional controller.
         print("[OUTPUT] AI-Output:{} PID-Steering:{}".format(x, pid_steering))
         car.steering = pid_steering
     except Exception as e:
